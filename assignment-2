@@ -3,42 +3,42 @@ import random
 def generate_number():
     return str(random.randint(1000, 9999))
 
-def get_cows_and_bulls(secret, guess):
+def number(secretno, guess):
     cows = 0
     bulls = 0
-    secret_list = list(secret)
+    secretno_list = list(secretno)
     guess_list = list(guess)
 
     
     for i in range(4):
-        if guess_list[i] == secret_list[i]:
+        if guess_list[i] == secretno_list[i]:
             cows += 1
-            secret_list[i] = guess_list[i] = None
+            secretno_list[i] = guess_list[i] = None
     
    
     for i in range(4):
-        if guess_list[i] and guess_list[i] in secret_list:
+        if guess_list[i] and guess_list[i] in secretno_list:
             bulls += 1
-            secret_list[secret_list.index(guess_list[i])] = None
+            secretno_list[secretno_list.index(guess_list[i])] = None
     
     return cows, bulls
 
 def play_game():
-    secret_number = generate_number()
+    secretno_number = generate_number()
     attempts = 0
     while True:
-        guess = input("Enter the Number: ")
+        guess = input("Enter your 4-digit guess: ")
         if not guess.isdigit() or len(guess) != 4:
             print("Invalid input. Please enter a 4-digit number.")
             continue
         
         attempts += 1
-        cows, bulls = get_cows_and_bulls(secret_number, guess)
+        cows, bulls = number(secretno_number, guess)
         
-        print(f"Cows: {cows}, Bulls: {bulls}")
+        print("Cows: {0}, Bulls: {1}".format(cows, bulls))
         
         if cows == 4:
-            print(f"Congratulations! You guessed the correct number {secret_number} in {attempts} attempts.")
+            print(f"Congratulations! You guessed the correct number {secretno_number} in {attempts} attempts.")
             break
 
 if __name__ == "__main__":
